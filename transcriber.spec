@@ -6,11 +6,12 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-    ('models/base.pt', 'models'),
-    ('bin/ffmpeg.exe', 'bin'),
-    ('bin/ffprobe.exe', 'bin'),
-    ('assets/logo.webp', 'assets'),
-    ('settings.json', '.'),],
+        ('models/base.pt', 'models'),
+        ('bin/ffmpeg.exe', 'bin'),
+        ('bin/ffprobe.exe', 'bin'),
+        ('assets/logo.webp', 'assets'),
+        ('settings.json', '.'),
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -19,14 +20,14 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
+    exclude_binaries=True,
     name='transcriber',
     debug=False,
     bootloader_ignore_signals=False,
@@ -40,5 +41,16 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['qca-logo.ico'],
+    icon='qca-logo.ico',
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='transcriber'
 )
