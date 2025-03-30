@@ -41,7 +41,7 @@ jobs:
                       transcriber.py
 
       - name: Upload Application Artifact
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v2
         with:
           name: Transcriber-macOS
           path: dist/Transcriber
