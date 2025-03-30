@@ -1,0 +1,8 @@
+{
+    "whisper_model": "medium",
+    "openai_api_key": "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",
+    "source_dir": "C:/Users/alexa/Dropbox/My Docs/Work Related/Websites/Recordings",
+    "dest_dir": "C:/Users/alexa/Dropbox/My Docs/Work Related/Websites/Recordings",
+    "file_size_limit_mb": 200,
+    "use_openai": false
+}
