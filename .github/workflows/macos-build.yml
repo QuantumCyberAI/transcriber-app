@@ -1,0 +1,47 @@
+name: Build macOS Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Download FFmpeg
+        run: |
+          curl -L -o ffmpeg.zip https://evermeet.cx/ffmpeg/getrelease/zip
+          unzip ffmpeg.zip
+          chmod +x ffmpeg
+          mv ffmpeg ffmpeg-bin
+
+      - name: Build Application with PyInstaller
+        run: |
+          pyinstaller --noconfirm \
+                      --onefile \
+                      --windowed \
+                      --add-binary "ffmpeg-bin:." \
+                      --name "Transcriber" \
+                      transcriber.py
+
+      - name: Upload Application Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Transcriber-macOS
+          path: dist/Transcriber
