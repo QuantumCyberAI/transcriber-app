@@ -1,0 +1,9 @@
+os
+time
+threading
+tkinter
+whisper
+pydub
+ttkbootstrap
+requests
+pillow
